@@ -1,34 +1,76 @@
+body {
+
+  background-image: url("images/background.jpg");
+  background-color: rgb(235,230,227);
+}
   .center {
     text-align: center;
 
+  }
+
+  #headers {
+    padding-top: 20px;
+  }
+
+  #app {
+    background-color: rgba(235,230,227,.4);
   }
 
   #main {
     position: relative;
   }
 
-  #input-parent, #menu-btns {
-    max-width: 200px;
-    margin: 100px auto;
+  #input-parent {
+    max-width: 160px;
+    margin: 50px auto;
+    position: relative;
   }
 
+  #player-input {
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    text-align: center;
+    font-size: 3em;
+    background-color: #ebe6e3;
+    box-shadow: 5px 5px 10px 0px;
+  }
+  #submit {
+    border-radius: 50%;
+    width:60px;
+    height: 60px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    box-shadow: 5px 5px 10px 0px black;
+  }
   ul {
       list-style: none;
       padding: 0;
   }
+.guess {
+  display: inline;
+  border: solid 1px #8d8a88;
+  font-size: 5em;
+  padding: 0px 30px;
+  margin: 10px;
+  border-radius: 20px;
+  background-color: #ebe6e3;
+  box-shadow: 5px 5px 10px 0px;
+}
+
   img {
       display: inline;
       max-width: 200px;
       margin: 20px;
-
   }
   button {
     margin:10px;
+    box-shadow: 5px 5px 10px 0px black;
   }
   #footer {
       width: 100%;
-      border-top: solid 2px black;
-      background-color: white;
+      border-top: solid 2px #8d8a88;
       position: fixed;
       bottom: 0;
   }
