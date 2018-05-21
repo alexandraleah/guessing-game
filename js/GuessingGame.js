@@ -79,10 +79,12 @@ Game.prototype.provideHint = function(){
   shuffle(hintArray);
   return hintArray;
 }
-var game = newGame();
-game.winningNumber = 42;
-game.playersGuessSubmission(36);
-game.playersGuessSubmission(4);
-game.pastGuesses = [36,4];
-console.log(game.playersGuessSubmission(4));
-// console.log(game.pastGuesses);
+
+$(document).ready(function() {
+  var game = new Game();
+  $('#submit').click(function(){
+    var playerGuess = $('#player-input').val();
+    $('#player-input').
+  });
+});
+// After the player has submitted their guess, clear the input element.
