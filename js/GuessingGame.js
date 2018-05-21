@@ -80,11 +80,17 @@ Game.prototype.provideHint = function(){
   return hintArray;
 }
 
+
+
 $(document).ready(function() {
   var game = new Game();
   $('#submit').click(function(){
     var playerGuess = $('#player-input').val();
-    $('#player-input').
+    console.log(playerGuess);
+    $('#player-input').val(null);
+    console.log(game.playersGuessSubmission(playerGuess));
   });
 });
-// After the player has submitted their guess, clear the input element.
+//
+// TASK
+// Extra: When a user presses the 'enter' key, repeat steps 2, 3, and 4. You'll probably be duplicating a lot of code here, so figure out how to be as DRY (Don't repeat yourself) as possible.
