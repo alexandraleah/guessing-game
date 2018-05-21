@@ -80,15 +80,24 @@ Game.prototype.provideHint = function(){
   return hintArray;
 }
 
+function handleGuess(game){
+  var playerGuess = $('#player-input').val();
+  console.log(playerGuess);
+  $('#player-input').val(null);
+  console.log(game.playersGuessSubmission(playerGuess));
+}
 
 
 $(document).ready(function() {
   var game = new Game();
   $('#submit').click(function(){
-    var playerGuess = $('#player-input').val();
-    console.log(playerGuess);
-    $('#player-input').val(null);
-    console.log(game.playersGuessSubmission(playerGuess));
+    handleGuess(game);
+  });
+  $('#main').keydown(function(){
+    //check that it was enter clicked
+    if(event.which===13){
+      handleGuess(game);
+    }
   });
 });
 //
