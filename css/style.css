@@ -48,13 +48,15 @@ body {
       list-style: none;
       padding: 0;
   }
-.guess {
-  display: inline;
+#guesses li {
+  display: inline-block;
   border: solid 1px #8d8a88;
-  font-size: 5em;
-  padding: 0px 30px;
+  font-size: 3em;
+  line-height:2;
+  width: 100px;
+  height: 100px;
   margin: 10px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: #ebe6e3;
   box-shadow: 5px 5px 10px 0px;
 }

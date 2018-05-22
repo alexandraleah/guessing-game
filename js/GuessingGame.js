@@ -81,18 +81,12 @@ Game.prototype.provideHint = function(){
   shuffle(hintArray);
   return hintArray;
 }
+//this function displays past guesses after each guess
 var guessDisplay = function(guesses){
-  var list = '';
-  for(var i = 0; i < 5; i++){
-    if(guesses[i]!== undefined){
-      list += '<li>' + guesses[i] + '</li>';
-    }
-    else {
-      list += '<li> - </li>';
-    }
+  //nth-child starts at 1, so start the counter at 1
+  for(var i = 1; i <=guesses.length; i++){
+    $('#guesses li:nth-child('+ i + ')').text(guesses[i]);
   }
-  return list;
-
 }
 
 function handleGuess(game){
