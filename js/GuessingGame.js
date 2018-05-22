@@ -49,6 +49,8 @@ Game.prototype.checkGuess = function(){
   }
   else {
     this.pastGuesses.push(this.playersGuess)
+    $('ul').html(guessDisplay(this.pastGuesses));
+
   }
   if (this.pastGuesses.length>4){
     return "You Lose.";
@@ -79,12 +81,25 @@ Game.prototype.provideHint = function(){
   shuffle(hintArray);
   return hintArray;
 }
+var guessDisplay = function(guesses){
+  var list = '';
+  for(var i = 0; i < 5; i++){
+    if(guesses[i]!== undefined){
+      list += '<li>' + guesses[i] + '</li>';
+    }
+    else {
+      list += '<li> - </li>';
+    }
+  }
+  return list;
+
+}
 
 function handleGuess(game){
   var playerGuess = $('#player-input').val();
-  console.log(playerGuess);
   $('#player-input').val(null);
   console.log(game.playersGuessSubmission(playerGuess));
+  $('h1').text(game.checkGuess());
 }
 
 
@@ -98,8 +113,6 @@ $(document).ready(function() {
     if(event.which===13){
       handleGuess(game);
     }
+
   });
 });
-//
-// TASK
-// Extra: When a user presses the 'enter' key, repeat steps 2, 3, and 4. You'll probably be duplicating a lot of code here, so figure out how to be as DRY (Don't repeat yourself) as possible.
