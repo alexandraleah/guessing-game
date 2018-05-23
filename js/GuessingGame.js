@@ -27,17 +27,22 @@ Game.prototype.difference = function(){
 };
 Game.prototype.isLower = function(){
    if (this.playersGuess < this.winningNumber) {
-     return true
+     return "Guess higher"
    }
-   else return false;
+   else if (this.playersGuess >this.winningNumber){
+     return "Guess lower";
+   }
+   else {
+     return "The number is " + this.winningNumber + ' click reset to play again'
+   }
 }
-Game.prototype.playersGuessSubmission = function (num){
+Game.prototype.playersGuessSubmission = function(){
     // throws an error if the number is invalid (less than 1, greater than 100, or not a number)(what if it is not an integer?)
-    if(num>100 || num < 1 || isNaN(num)){
+    var num = this.playersGuess;
+    if(num > 100 || num < 1 || isNaN(num)){
       throw "That is an invalid guess.";
     }
     // takes a number as an argument and sets that as playersGuess
-    this.playersGuess = num;
     return this.checkGuess();
   }
 
@@ -50,10 +55,9 @@ Game.prototype.checkGuess = function(){
   }
   else {
     this.pastGuesses.push(this.playersGuess)
-    // $('ul').html(guessDisplay(this.pastGuesses));
   }
   if (this.pastGuesses.length>4){
-    return "You Lose.";
+    return "You Lose";
   }
   if (this.difference()<10){
     return "You\'re burning up!";
@@ -70,6 +74,9 @@ Game.prototype.checkGuess = function(){
 }
 
 function newGame(){
+  $('h1').text('The Guessing Game');
+  $('h2').text('Guess a number between 1 and 100');
+  $('li').text('-');
   return game = new Game();
 }
 
@@ -82,18 +89,28 @@ Game.prototype.provideHint = function(){
   return hintArray;
 }
 //this function displays past guesses after each guess
-var guessDisplay = function(guesses){
-  //nth-child starts at 1, so start the counter at 1
+ Game.prototype.guessDisplay = function(){
+   var guesses = this.pastGuesses;
+   //nth-child starts at 1, so start the counter at 1
   for(var i = 1; i <= guesses.length; i++){
-    $('#guesses li:nth-child('+ i + ')').text(guesses[i]);
-  }
+       $('#guesses li:nth-child('+ i + ')').text(guesses[i-1]);
+   }
 }
 
 function handleGuess(game){
-  this.playersGuess = $('#player-input').val();
-  console.log(this.playersGuess);
-  $('h1').text(game.checkGuess());
+  game.playersGuess = +$('#player-input').val();
+  var output = game.playersGuessSubmission();
+  $('h1').text(output);
+  if(output === "You Lose"){
+    $('h2').text("The number is " + game.winningNumber + ". Click reset to play again");
+  }
+  //dry up this code some.
+  //need to handle when someone enters something that is not a number and it throws an error
+  else{
+    $('h2').text(game.isLower());
+  }
   $('#player-input').val(null);
+  game.guessDisplay();
 }
 
 
@@ -110,7 +127,12 @@ $(document).ready(function() {
   });
   $('#new').click(function(){
        newGame();
-      $('h1').text('The Guessing Game');
   });
 
+  $('#hint').click(function(){
+      $('h2').text('The number is one of ' + game.provideHint().join(", "));
+  });
 });
+//finish assignment
+//refractor code
+//add in backgrounds that transition
