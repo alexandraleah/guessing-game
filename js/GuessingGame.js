@@ -1,3 +1,4 @@
+var  game;
 function generateWinningNumber(){
   return Math.floor((Math.random()*100))+1;
 }
@@ -17,7 +18,7 @@ function shuffle(arr){
 }
 //constructor function for a new game instance.
 function Game(){
-  this.playersGuess = null;
+  this.playersGuess = undefined;
   this.pastGuesses = [];
   this.winningNumber = generateWinningNumber();//winningNumber is a property that is assigned to the return value of generateWinningNumber()
 }
@@ -49,8 +50,7 @@ Game.prototype.checkGuess = function(){
   }
   else {
     this.pastGuesses.push(this.playersGuess)
-    $('ul').html(guessDisplay(this.pastGuesses));
-
+    // $('ul').html(guessDisplay(this.pastGuesses));
   }
   if (this.pastGuesses.length>4){
     return "You Lose.";
@@ -70,7 +70,7 @@ Game.prototype.checkGuess = function(){
 }
 
 function newGame(){
-  return new Game();
+  return game = new Game();
 }
 
 Game.prototype.provideHint = function(){
@@ -84,21 +84,21 @@ Game.prototype.provideHint = function(){
 //this function displays past guesses after each guess
 var guessDisplay = function(guesses){
   //nth-child starts at 1, so start the counter at 1
-  for(var i = 1; i <=guesses.length; i++){
+  for(var i = 1; i <= guesses.length; i++){
     $('#guesses li:nth-child('+ i + ')').text(guesses[i]);
   }
 }
 
 function handleGuess(game){
-  var playerGuess = $('#player-input').val();
-  $('#player-input').val(null);
-  console.log(game.playersGuessSubmission(playerGuess));
+  this.playersGuess = $('#player-input').val();
+  console.log(this.playersGuess);
   $('h1').text(game.checkGuess());
+  $('#player-input').val(null);
 }
 
 
 $(document).ready(function() {
-  var game = new Game();
+  newGame();
   $('#submit').click(function(){
     handleGuess(game);
   });
@@ -107,6 +107,10 @@ $(document).ready(function() {
     if(event.which===13){
       handleGuess(game);
     }
-
   });
+  $('#new').click(function(){
+       newGame();
+      $('h1').text('The Guessing Game');
+  });
+
 });
