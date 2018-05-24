@@ -60,15 +60,20 @@ Game.prototype.checkGuess = function(){
     return "You Lose";
   }
   if (this.difference()<10){
+    $('#wrapper').removeClass().addClass('burning container-fluid')
     return "You\'re burning up!";
   }
   else if (this.difference()<25){
-    return "You\'re lukewarm.";
+    $('#wrapper').removeClass().addClass('warm container-fluid')
+    return "You\'re warm.";
   }
   else if (this.difference()<50){
+    $('#wrapper').removeClass().addClass('chilly container-fluid')
+    //refracter this code so less repetative
     return "You\'re a bit chilly.";
   }
   else {
+    $('#wrapper').removeClass().addClass('ice container-fluid')
     return "You\'re ice cold!";
   }
 }
@@ -77,7 +82,7 @@ function newGame(){
   $('h1').text('The Guessing Game');
   $('h2').text('Guess a number between 1 and 100');
   $('li').text('-');
-  return game = new Game();
+  game = new Game();
 }
 
 Game.prototype.provideHint = function(){
