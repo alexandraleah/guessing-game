@@ -83,7 +83,9 @@ function newGame(){
   $('h2').text('Guess a number between 1 and 100');
   $('h3').text('');
   $('li').text('-');
-  $('body').removeClass().addClass('start container-fluid')
+  $('body').removeClass().addClass('start container-fluid');
+  $( "#hint" ).prop( "disabled", false );
+  $( "#submit" ).prop( "disabled", false );
   game = new Game();
 }
 //wish list: more interesting hints that are more like clues
@@ -124,6 +126,8 @@ Game.prototype.handleGuess = function(){
   if(outcome === "win" || outcome === "lose"){
     $('h2').text("The number is " + this.winningNumber);
     $('h3').text("Click reset to play again");
+    $( "#hint" ).prop( "disabled", true );
+    $( "#submit" ).prop( "disabled", true );
   }
   else{
     $('h2').text(this.isLower());
