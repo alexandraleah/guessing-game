@@ -5,21 +5,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
-  <body>
-
-      <div id='app' class="center container-fluid">
-
+  <body class = "start">
+      <div id='app' class="center">
         <div id='headers' class="center">
           <h1>The Guessing Game</h1>
           <h2>Guess a number between 1 and 100</h2>
+          <h3></h3>
         </div>
 
         <div id='main'>
           <div id='input-parent'>
-            <input id="player-input" type="number" max="100" min="1">
+            <input id="player-input" type="number" min=1 max=100 placeholder="?" autofocus>
             <input type="submit" id="submit" class="btn btn-primary" value="Go!">
           </div>
-
           <div id='guesses'>
             <ul>
               <li class = "guess">-</li>
@@ -31,25 +29,22 @@
           </div>
 
           <div id="menu-btns">
-            <button type="button" class="btn btn-secondary">Reset</button>
-            <button type="button" class="btn btn-secondary">Hint</button>
+            <button type="button" id="new" class="btn btn-secondary">Reset</button>
+            <button type="button" id="hint" class="btn btn-secondary">Hint</button>
           </div>
         </div>
       </div>
-
-
-    <div id='footer' class="row">
-          <div class='col-sm-4'>
+    <div id='footer' class="row center">
+          <div class='col-4'>
             <img src='images/fa-logo.png'></img>
           </div>
 
-          <div class='col-sm-4'>
-            <h4>Project by Alexandra Ash</h4>
+          <div class='col-4'>
+            <h4>By Alexandra Ash</h4>
           </div>
-          <div class='col-sm-4'>
+          <div class='col-4'>
             <img src='images/grace_hopper_academy.png'></img>
           </div>
-        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/GuessingGame.js"></script>

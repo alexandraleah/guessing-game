@@ -1,25 +1,56 @@
-body {
-
-  background-image: url("../images/background.jpg");
-  background-color: rgb(235,230,227);
+body{
+  -webkit-transition: all 1s ease;
+   -moz-transition: all 1s ease;
+   -o-transition: all 1s ease;
+   transition: all 1s ease;
 }
+.warm {
+background-image: url("../images/warm.jpg");
+}
+.start, .lose {
+  background-image: url("../images/background.jpg");
+}
+.win {
+  background-image: url("../images/win.gif"), url("../images/background.jpg");
+}
+
+.burning {
+  background-image: url("../images/burning.jpg");
+}
+
+.chilly {
+  background-image: url("../images/chilly.jpg");
+}
+
+.duplicate {
+  background-image: url("../images/background.jpg");
+}
+
+.ice {
+  background-image: url("../images/ice.jpg");
+}
+
   .center {
     text-align: center;
 
   }
 
-  #headers {
-    padding-top: 20px;
+#headers {
+    background-color: rgba(235,230,227,.6);
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 650px;
+    border-radius: 10px;
   }
 
   #app {
-    background-color: rgba(235,230,227,.4);
+
   }
 
   #main {
     position: relative;
   }
-
+/* consider placing the titles in a box with a shadow, then don't have to worry about the photo, and can return the photos  to their original versions */
   #input-parent {
     max-width: 160px;
     margin: 50px auto;
@@ -53,8 +84,9 @@ body {
   border: solid 1px #8d8a88;
   font-size: 3em;
   line-height:2;
-  width: 100px;
-  height: 100px;
+  width: 20%;
+  max-width: 100px;
+  max-height: 100px;
   margin: 10px;
   border-radius: 10px;
   background-color: #ebe6e3;
@@ -63,6 +95,7 @@ body {
 
   img {
       display: inline;
+      width:100%;
       max-width: 200px;
       margin: 20px;
   }
@@ -71,13 +104,15 @@ body {
     box-shadow: 5px 5px 10px 0px black;
   }
   #footer {
-      width: 100%;
-      border-top: solid 2px #8d8a88;
-      position: fixed;
-      bottom: 0;
+      margin-top: 20px;
+      background-color: rgb(235,230,227);
+      padding-bottom: 10px;
+
+
   }
 
 #footer h4 {
   margin-top: 30px;
   text-align: center;
+font-size:1em;
 }
