@@ -1,8 +1,10 @@
+//do I need to declare the variable var outside the  functions?
 var  game;
+//generate the random number
 function generateWinningNumber(){
   return Math.floor((Math.random()*100))+1;
 }
-
+//shuffle function
 function shuffle(arr){
   var m = arr.length;//how many elements you have to shuffle
   //you will swap the card at index m - 1 with a randomly selected card, at index i
@@ -22,9 +24,12 @@ function Game(){
   this.pastGuesses = [];
   this.winningNumber = generateWinningNumber();//winningNumber is a property that is assigned to the return value of generateWinningNumber()
 }
+//calculate difference
 Game.prototype.difference = function(){
   return Math.abs(this.playersGuess - this.winningNumber);
 };
+//message
+//clean this up, I think it would be easier to have variable for each case and then craft the messages and what happens later
 Game.prototype.isLower = function(){
    if (this.playersGuess < this.winningNumber) {
      return "Guess higher"
@@ -32,10 +37,8 @@ Game.prototype.isLower = function(){
    else if (this.playersGuess >this.winningNumber){
      return "Guess lower";
    }
-   else {
-     return "The number is " + this.winningNumber + ' click reset to play again'
-   }
 }
+//need to handle the error
 Game.prototype.playersGuessSubmission = function(){
     // throws an error if the number is invalid (less than 1, greater than 100, or not a number)(what if it is not an integer?)
     var num = this.playersGuess;
@@ -48,43 +51,42 @@ Game.prototype.playersGuessSubmission = function(){
 
 Game.prototype.checkGuess = function(){
   if(this.playersGuess === this.winningNumber){
-    return "You Win!";
+    return "win";
   }
   if(this.pastGuesses.includes(this.playersGuess)) {
-    return "You have already guessed that number.";
+    return "duplicate";
   }
   else {
     this.pastGuesses.push(this.playersGuess)
   }
   if (this.pastGuesses.length>4){
-    return "You Lose";
+    return "lose";
   }
   if (this.difference()<10){
-    $('#wrapper').removeClass().addClass('burning container-fluid')
-    return "You\'re burning up!";
+//dry this code up and move it
+    return "burning";
   }
   else if (this.difference()<25){
-    $('#wrapper').removeClass().addClass('warm container-fluid')
-    return "You\'re warm.";
+    return "warm";
   }
   else if (this.difference()<50){
-    $('#wrapper').removeClass().addClass('chilly container-fluid')
-    //refracter this code so less repetative
-    return "You\'re a bit chilly.";
+    return "chilly";
   }
   else {
-    $('#wrapper').removeClass().addClass('ice container-fluid')
-    return "You\'re ice cold!";
+    return "ice";
   }
 }
 
 function newGame(){
+  //is there a way to do this more succinctly so it simply resets?
   $('h1').text('The Guessing Game');
   $('h2').text('Guess a number between 1 and 100');
+  $('h3').text('');
   $('li').text('-');
+  $('body').removeClass().addClass('start container-fluid')
   game = new Game();
 }
-
+//wish list: more interesting hints that are more like clues
 Game.prototype.provideHint = function(){
   var hintArray = [];
   hintArray.push(this.winningNumber);
@@ -101,33 +103,45 @@ Game.prototype.provideHint = function(){
        $('#guesses li:nth-child('+ i + ')').text(guesses[i-1]);
    }
 }
-
-function handleGuess(game){
-  game.playersGuess = +$('#player-input').val();
-  var output = game.playersGuessSubmission();
-  $('h1').text(output);
-  if(output === "You Lose"){
-    $('h2').text("The number is " + game.winningNumber + ". Click reset to play again");
-  }
-  //dry up this code some.
-  //need to handle when someone enters something that is not a number and it throws an error
-  else{
-    $('h2').text(game.isLower());
-  }
-  $('#player-input').val(null);
-  game.guessDisplay();
+var messages = {
+  reset: "Click reset to play again.",
+  burning: "You\'re burning up!",
+  warm: "You\'re warm.",
+  win: "You Win!",
+  duplicate: "You have already guessed that number.",
+  lose: "Sorry, you lose",
+  ice: "You\'re ice cold!",
+  chilly: "You\'re a bit chilly."
 }
 
+Game.prototype.handleGuess = function(){
+  var numberMessage = "The number is " + this.winningNumber;
+    // $('#wrapper').removeClass().addClass('burning container-fluid')
+  this.playersGuess = +$('#player-input').val();
+  var outcome = this.playersGuessSubmission();
+  $('h1').text(messages[outcome]);
+  $('body').removeClass().addClass('container-fluid').addClass(outcome);
+  if(outcome === "win" || outcome === "lose"){
+    $('h2').text("The number is " + this.winningNumber);
+    $('h3').text("Click reset to play again");
+  }
+  else{
+    $('h2').text(this.isLower());
+  }
+  $('#player-input').val(null);
+  this.guessDisplay();
+}
 
+//event handlers
 $(document).ready(function() {
   newGame();
   $('#submit').click(function(){
-    handleGuess(game);
+    game.handleGuess();
   });
   $('#main').keydown(function(){
     //check that it was enter clicked
     if(event.which===13){
-      handleGuess(game);
+      game.handleGuess();
     }
   });
   $('#new').click(function(){
@@ -140,4 +154,3 @@ $(document).ready(function() {
 });
 //finish assignment
 //refractor code
-//add in backgrounds that transition
